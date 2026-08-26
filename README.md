@@ -35,6 +35,7 @@ The following scenarios are covered:
 
 ## Project Structure
 
+```
 SauceDemoAutomation/
 ├── Pages/
 │   ├── LoginPage.cs
@@ -51,6 +52,7 @@ SauceDemoAutomation/
 ├── SauceDemoAutomation.csproj
 ├── README.md
 └── .gitignore
+```
 
 ## Page Object Model
 
