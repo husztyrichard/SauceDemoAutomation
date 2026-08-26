@@ -1,37 +1,13 @@
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using SauceDemoAutomation.Pages;
 
 namespace SauceDemoAutomation.Tests;
 
-public class CheckoutTests
+public class CheckoutTests : WebTestBase
 {
-    private IWebDriver driver;
-    private LoginPage loginPage;
-    private InventoryPage inventoryPage;
-    private CartPage cartPage;
-    private CheckoutPage checkoutPage;
-
     [SetUp]
-    public void Setup()
+    public void CheckoutSetup()
     {
-        driver = new ChromeDriver();
-
-        loginPage = new LoginPage(driver);
-        inventoryPage = new InventoryPage(driver);
-        cartPage = new CartPage(driver);
-        checkoutPage = new CheckoutPage(driver);
-
-        driver.Navigate().GoToUrl("https://www.saucedemo.com/");
-        loginPage.Login("standard_user", "secret_sauce");
-
-        inventoryPage.AddProductToCart("Sauce Labs Backpack");
-
-        driver.FindElement(
-            By.ClassName("shopping_cart_link")
-        ).Click();
-
+        LoginAndOpenCart();
         cartPage.GoToCheckout();
     }
 
@@ -68,18 +44,17 @@ public class CheckoutTests
         );
 
         checkoutPage.Continue();
+
+        Assert.That(
+            checkoutPage.GetItemTotal(),
+            Does.Contain("Item total")
+        );
+
         checkoutPage.FinishOrder();
 
         Assert.That(
             checkoutPage.GetConfirmationMessage(),
             Is.EqualTo("Thank you for your order!")
         );
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-        driver.Quit();
-        driver.Dispose();
     }
 }

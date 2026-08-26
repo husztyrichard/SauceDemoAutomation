@@ -1,4 +1,5 @@
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace SauceDemoAutomation.Pages;
 
@@ -32,6 +33,9 @@ public class CheckoutPage
     private IWebElement ConfirmationMessage =>
         driver.FindElement(By.ClassName("complete-header"));
 
+    private IWebElement ItemTotalLabel =>
+        driver.FindElement(By.ClassName("summary_subtotal_label"));
+
     public void FillCheckoutInformation(
         string firstName,
         string lastName,
@@ -57,8 +61,20 @@ public class CheckoutPage
         return ErrorMessage.Text;
     }
 
+    public string GetItemTotal()
+    {
+        return ItemTotalLabel.Text;
+    }
+
     public string GetConfirmationMessage()
     {
+        var wait = new WebDriverWait(
+            driver,
+            TimeSpan.FromSeconds(10)
+        );
+
+        wait.Until(d => ConfirmationMessage.Displayed);
+
         return ConfirmationMessage.Text;
     }
 }

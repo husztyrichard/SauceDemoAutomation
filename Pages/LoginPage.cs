@@ -20,10 +20,18 @@ public class LoginPage
     private IWebElement LoginButton =>
         driver.FindElement(By.Id("login-button"));
 
+    private IWebElement ProductsTitle =>
+        driver.FindElement(By.ClassName("title"));
+
     public void Login(string username, string password)
     {
         UsernameInput.SendKeys(username);
         PasswordInput.SendKeys(password);
         LoginButton.Click();
+    }
+
+    public string GetProductsTitle()
+    {
+        return ProductsTitle.Text;
     }
 }

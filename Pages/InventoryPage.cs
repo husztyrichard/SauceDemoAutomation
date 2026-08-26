@@ -18,6 +18,12 @@ public class InventoryPage
     private IReadOnlyCollection<IWebElement> ProductPrices =>
         driver.FindElements(By.ClassName("inventory_item_price"));
 
+    private IWebElement CartLink =>
+        driver.FindElement(By.ClassName("shopping_cart_link"));
+
+    private IWebElement CartBadge =>
+        driver.FindElement(By.ClassName("shopping_cart_badge"));
+
     public void AddProductToCart(string productName)
     {
         string productId = productName
@@ -45,5 +51,15 @@ public class InventoryPage
                 )
             )
             .ToList();
+    }
+
+    public void OpenCart()
+    {
+        CartLink.Click();
+    }
+
+    public string GetCartBadgeCount()
+    {
+        return CartBadge.Text;
     }
 }
