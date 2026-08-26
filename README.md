@@ -83,8 +83,6 @@ The final test suite contains 8 active automated tests, all of which pass succes
 
 ## AI Usage
 
-## AI Usage
-
 AI tools were used during the implementation of this assignment.
 
 - ChatGPT was used for initial project setup, test scenario implementation, Selenium/NUnit guidance, troubleshooting, and refactoring the tests into a Page Object Model structure.
